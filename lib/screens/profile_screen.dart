@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/profile_photo.dart';
-import '../widgets/profile_info.dart';
+import '../widgets/profile_header.dart';
+import '../widgets/social_media_row.dart';
+import '../widgets/action_button_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,45 +10,40 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil Mahasiswa'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
+        title: const Text('Profil Saya'),
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 24),
-              const ProfilePhoto(radius: 60),
-              const SizedBox(height: 24),
-              const ProfileInfo(
-                name: 'Nama Mahasiswa',
-                nim: '21.11.6568',
-                programStudi: 'S1 Informatika',
-                email: 't.wahidiyah@students.amikom.ac.id',
-                lokasi: 'Universitas Amikom Yogyakarta, Indonesia',
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    // Menghapus 'const' di depan Column agar ProfileHeader() bisa dipanggil normal
+                    const ProfileHeader(), 
+                    const SizedBox(height: 24),
+                    const SocialMediaRow(),
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Flutter Developer | Belajar Widgets & Layouts',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 24),
-              // Tombol aksi
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit'),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.share),
-                    label: const Text('Bagikan'),
-                  ),
-                ],
+            ),
+            const Flexible(
+              flex: 1,
+              fit: FlexFit.loose,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: ActionButtons(), // Pastikan nama class tombol Anda adalah ActionButtons
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
